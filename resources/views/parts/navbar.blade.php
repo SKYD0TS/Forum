@@ -18,22 +18,22 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto mr-2">
                         @auth
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown mr-4">
                                 <a class="nav-link dropdown-toggle active" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth()->user()->name }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/dashboard"><span class="align-text-bottom" data-feather="home"></span> Dashboard</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
                                         <form action="/logout" method="POST">
                                             @csrf
-                                            <button class="dropdown-item" type="submit">Logout</button>
+                                            <button class="dropdown-item" type="submit"><span class="align-text-bottom" data-feather='log-out'></span>Logout</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -49,5 +49,7 @@
                 </div>
             </div>
         </nav>
+        
+    
 
     </div>
