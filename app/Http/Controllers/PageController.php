@@ -10,17 +10,22 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function index()
-    {
-        return view('login', ['title' => 'Login']);
-    }
 
     public function allPosts()
     {
+        $title = '';
+        if (request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = 'All Posts In ' . $category->name;
+        } elseif (request('user')) {
+            $user = User::firstWhere('username', request('user'));
+            $title = 'All Posts By ' . $user->name;
+        }
+
 
         return view('posts', [
-            'title' => 'Posts',
-            'posts' => Post::latest()->searchFilter(request(['search']))->get()
+            'title' => $title,
+            'posts' => Post::latest()->Filter(request(['category', 'search', 'user']))->paginate(4)->withQueryString()
         ]);
     }
 

@@ -33,12 +33,12 @@ class DatabaseSeeder extends Seeder
         user::factory(4)->create();
 
         category::create([
-            'name' => 'the',
-            'slug' => 'theCat'
+            'name' => 'Programming',
+            'slug' => 'ProgrammingCat'
         ]);
         category::create([
-            'name' => 'hex',
-            'slug' => 'hexCat'
+            'name' => '3D Modelling',
+            'slug' => '3DModellingCat'
         ]);
 
         post::factory(30)->create();
