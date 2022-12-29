@@ -9,6 +9,17 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{asset('css/dashboard.css')}}" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+
+    <style>
+        trix-toolbar[data-trix-button-group="file-tools"]{
+            display: none;
+        }
+        .trix-button-group--file-tools{
+            display: none;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -21,9 +32,9 @@
             
             @include('dashboard.layouts.sidebar')
       
-          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 @yield('container')
-          </main>
+            </main>
         </div>
       </div>
 
@@ -42,9 +53,14 @@
 
     <script src="js/dashboard"></script>
 
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
     <script>
         feather.replace()
     </script>
+    
+
+
 
 </body>
 

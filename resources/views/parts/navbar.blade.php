@@ -10,13 +10,15 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-
+                    
+                    @auth
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link {{ $title == 'Posts' ? 'active border-bottom' : '' }}"
                                 href="/posts">Posts</a>
                         </li>
                     </ul>
+                    @endauth
 
                     <ul class="navbar-nav ms-auto mr-2">
                         @auth

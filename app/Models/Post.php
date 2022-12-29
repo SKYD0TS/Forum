@@ -10,13 +10,15 @@ class Post extends Model
 {
     use Sluggable;
 
-    public function sluggable():array{
+    public function sluggable(): array
+    {
         return [
             'slug' => [
-            'source'=> 'title'
+                'source' => 'title'
             ]
-    ];
+        ];
     }
+
 
     protected $guarded = ['id'];
     protected $with = ['category', 'user'];

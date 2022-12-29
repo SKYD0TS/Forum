@@ -14,20 +14,44 @@
         </div>
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" name="slug" class="form-control" id="slug" value="">
+            <input type="text" name="slug" class="form-control" id="slug" disabled readonly value="">
         </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" class="form-select" aria-label="Default select example">
+                @foreach($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <div class="text-danger">FILE BUTTON HAS YET TO BE REMOVED</div>
+            <trix-editor></trix-editor>
+            <div class="text-danger">SUBMIT HAS YET TO BE FUNCTION</div>
+        </div>
+
+        
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
-<script type="text/javascript">
-    const title = document.querySelector('#title');
-    const slug = document.querySelector('#slug');
+    
+
+
+<script>
+    const title = document.querySelector('#title')
+    const slug = document.querySelector('#slug')
 
     title.addEventListener('change',function(){
-        fetch('/dashboard/posts/checkSlug?title='+title.value)
-        .then(response=>response.json)
-        .then(data=>slug.value = data.slug)
+        fetch('/dashboard/post/checkSlug?title=' + title.value)
+        .then((response)=>response.json())
+        .then((data)=>slug.value = data.slug);
+    })
+
+    document.addEventListener('trix-file-accept',function(e){
+        e.preventDefault()
     })
 </script>
 
