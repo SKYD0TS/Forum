@@ -26,11 +26,9 @@
             <article class="mb-4 border-bottom">
                 <li>
                     <h4><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h4> {{-- title --}}
-                    <p>{{ substr($post->content, 0, 100) . '...' }} </p> {{-- excerpt --}}
-                    <p><a href="/posts?user={{ $post->user->username }}">{{ $post->user->name }}</a>
-                        {{-- user --}}
-                        in <a href="/posts?category={{ $post->category->slug }}">
-                            {{ $post->category->name }}</a></p>{{-- category --}}
+                    <p>{{ $post->excerpt . '...' }} </p> {{-- excerpt --}}
+                    <p><a href="/posts?user={{ $post->user->username }}">{{ $post->user->name }}</a>{{-- user --]}}
+                    in <a href="/posts?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>{{-- category --}}
                 </li>
             </article>
         @endforeach

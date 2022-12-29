@@ -2,22 +2,23 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap mt-2 border-bottom">
-    <h1>Write a Post</h1>
+    <h1>Edit Post</h1>
 </div>
 
 <div class="col-lg-8 mb-5">
-    <form method="POST" action="/dashboard/posts">
+    <form method="POST" action="/dashboard/posts/{{ $post->slug }}">
+        @method('put')
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input autofocus name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title') }}">
+            <input autofocus name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title',$post->title) }}">
             @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" id="slug" readonly value="{{ old('slug') }}">
+            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" id="slug" value="{{ old('slug',$post->slug) }}">
             @error('slug')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -27,7 +28,7 @@
             <label for="category" class="form-label">Category</label>
             <select name="category_id" id="category" class="form-select @error('category') is-invalid @enderror">
                 @foreach($categories as $cat)
-                    @if(old('category_id')==$cat->id)
+                    @if(old('category_id',$post->category_id)==$cat->id)
                         <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
                     @else
                         <option value="{{ $cat->id }}" >{{ $cat->name }}</option>
@@ -41,14 +42,14 @@
         
         <div class="mb-3">
             <div class="text-danger">FILE BUTTON HAS YET TO BE REMOVED</div>
-            <input id="x" type="hidden"  name="content" value="{{ old('content') }}">
+            <input id="x" type="hidden"  name="content" value="{{ old('content',$post->content) }}">
             <trix-editor class="@error('title') is-invalid @enderror" input="x"></trix-editor>
             @error('content')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update Post</button>
     </form>
 </div>
 

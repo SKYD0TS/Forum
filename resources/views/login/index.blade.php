@@ -24,7 +24,7 @@
                 {{ csrf_field() }}
                 <label for="inputUsername5" class="form-label">Username</label>
                 <input name='username' type="text" id="inputUsername5" class="form-control"
-                    value="@isset($username) {{ $username }} @endisset {{ old('username') }}"
+                    value="@isset($username) {{ $username }}@endisset{{ old('username') }}"
                     autofocus />
                 {{-- @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>

@@ -5,18 +5,19 @@
     <h1>Posts of, {{ auth()->user()->name }}</h1>
 </div>
 <div class="container acts">
-    <button class="mt-4 btn btn-success" href="/dashboard/posts"><span  class="align-text-bottom" data-feather="arrow-left"></span> Back to posts</button>
-    <button class="mt-4 btn btn-warning" href="/dashboard/posts/edit"><span  class="align-text-bottom" data-feather="edit-3"></span> Back to posts</button>
-    <button class="mt-4 btn btn-danger" href="/dashboard/posts"><span  class="align-text-bottom" data-feather="trash-2"></span> Delete</button>
+    <a class="mt-4 btn btn-success" href="/dashboard/posts"><span  class="align-text-bottom" data-feather="arrow-left"></span> Back to posts</a>
+    <a class="mt-4 btn btn-warning" href="/dashboard/posts/{{ $post->slug }}/edit"><span  class="align-text-bottom" data-feather="edit-3"></span> Edit Post</a>
+    <form class="d-inline" action="/dashboard/posts/{{ $post->slug }}" method="POST">
+        @method('delete')
+        @csrf
+        <button class="mt-4 btn btn-danger border-0" type="submit" onclick="return confirm('delete?');"><span class="align-text-bottom" data-feather='trash-2'></span>Delete Post</button>
+    </form>
 </div>
 
 <div class="container mt-4">
 
     <h3>{{ $post->title }} </h3>
-    <p>{{ $post->content }} </p>
-
-    <p><a href="/posts?={{ $post->user->name }}">{{ $post->user->name }}</a>
-        in <a href="/posts?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+    <p>{!! $post->content !!} </p>
 
 </div>
 @endsection
