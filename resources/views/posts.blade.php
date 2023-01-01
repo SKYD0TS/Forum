@@ -21,19 +21,43 @@
 
 <div class="container">
     <h2 class="mb-4">{{ $title }}</h2>
-    <ul>
+    <div class="d-flex flex-row flex-wrap">
         @foreach ($posts as $post)
-            <article class="mb-4 border-bottom">
+            {{-- <article class="mb-4 border-bottom">
                 <li>
-                    <h4><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h4> {{-- title --}}
-                    <p>{{ $post->excerpt . '...' }} </p> {{-- excerpt --}}
-                    <p><a href="/posts?user={{ $post->user->username }}">{{ $post->user->name }}</a>{{-- user --]}}
-                    in <a href="/posts?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>{{-- category --}}
+                    <h4><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h4>
+                    <p>{{ $post->excerpt . '...' }} </p>
+                    <p><a href="/posts?user={{ $post->user->username }}">{{ $post->user->name }}</a>
+                    in <a href="/posts?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>
                 </li>
             </article>
+             --}}
+            <div class="card mx-2 my-2" style="width: 18rem;">
+                @if ($post->image)
+                    <img class="mx-1 my-1 rounded-top" src="{{ asset('storage/' . $post->image) }}" alt="">
+                @else
+                    <img class="mx-1 my-1 rounded-top"
+                        src="https://source.unsplash.com/720x360?{{ $post->category->name }}" alt="">
+                @endif
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ $post->title }}</h5>
+
+                    <h6 class="card-subtitle mb-2 ">
+                        <a class="text-decoration-none" href="/posts?user={{ $post->user->username }}">
+                            {{ $post->user->username }}</a>
+                        <span class="text-muted">in</span>
+                        <a class="text-decoration-none" href="/posts?category={{ $post->category->slug }}">
+                            {{ $post->category->name }}</a>
+                    </h6>
+
+                    <p class="card-text">{{ $post->excerpt }}</p>
+                    <a href="/post/{{ $post->slug }}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
         @endforeach
-    </ul>
-    <div class="mb-5 fixed-bottom d-flex justify-content-center">
+    </div>
+    <div class="mb-5 mt-5 d-flex justify-content-center">
         {{ $posts->links() }}
     </div>
 </div>

@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +25,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('posts/', [PageController::class, 'allPosts']);
+Route::get('posts/', [PageController::class, 'allPosts'])->middleware('auth');
 Route::get('post/{title:slug}', [PageController::class, 'viewPost']);
 Route::get('category/{category:slug}', [PageController::class, 'byCategory']);
 Route::get('user/{user:username}', [PageController::class, 'byUser']);
@@ -50,7 +48,8 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 
-Route::get('/dashboard/post/checkSlug',[DashboardPostController::class,'checkSlug'])->middleware('auth');
-Route::resource('/dashboard/posts',DashboardPostController::class)->middleware('auth');
+Route::get('/dashboard/post/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 
 
+Route::resource('dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');

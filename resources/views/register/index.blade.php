@@ -2,9 +2,9 @@
 @section('title', $title)
 @include('parts.navbar')
 @section('content')
-    <div class="container mt-4 container-sm-2">
+    <div class="container mt-4 w-75">
         <div class="container border rounded-2 mt-4">
-            <h1 class="text-center mt-2">Login</h1>
+            <h1 class="text-center mt-2">Register</h1>
 
             <form action="/register" method="post">
                 {{ csrf_field() }}
@@ -37,7 +37,7 @@
                 @enderror
 
 
-                <input class="w-50 btn btn-primary mt-2 d-block mx-auto" type="submit" value="Login" />
+                <input class="w-50 btn btn-primary mt-4 d-block mx-auto" type="submit" value="Register" />
             </form>
         </div>
         <small>Registered? <a href="/login">Login Now</a></small>

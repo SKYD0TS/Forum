@@ -7,25 +7,27 @@ use App\Models\Post;
 use App\Models\User;
 
 use Illuminate\Http\Request;
-//!!FIX PASSING TITLE
+
 class PageController extends Controller
 {
 
     public function allPosts()
     {
-        $title = '';
+        $header = 'Posts';
+        $title = 'Posts';
         if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
-            $title = 'All Posts In ' . $category->name;
+            $header = 'All Posts In ' . $category->name;
         } elseif (request('user')) {
             $user = User::firstWhere('username', request('user'));
-            $title = 'All Posts By ' . $user->name;
+            $header = 'All Posts By ' . $user->name;
         }
 
 
         return view('posts', [
             'title' => $title,
-            'posts' => Post::latest()->Filter(request(['category', 'search', 'user']))->paginate(4)->withQueryString()
+            'header' => $header,
+            'posts' => Post::latest()->Filter(request(['category', 'search', 'user']))->paginate(8)->withQueryString()
         ]);
     }
 

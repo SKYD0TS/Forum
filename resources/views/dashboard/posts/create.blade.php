@@ -46,17 +46,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label">Image File</label>
-                <input class="form-control @error('category') is-invalid @enderror" type="file" id="image"
-                    name="image">
+                <label for="image" class="form-label">Image</label>
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                    name="image" onchange="previewImg()">
                 @error('image')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <img id="imgPrev" class="img-preview mb-3 img-fluid col-sm-5" src="">
             </div>
 
             <div class="mb-3">
                 <input id="x" type="hidden" name="content" value="{{ old('content') }}">
-                <trix-editor class="trix-content @error('title') is-invalid @enderror" input="x"></trix-editor>
+                <trix-editor class="trix-content @error('content') is-invalid @enderror" input="x"></trix-editor>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
