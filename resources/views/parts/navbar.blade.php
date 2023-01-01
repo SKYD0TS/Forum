@@ -1,5 +1,5 @@
     <div class="container mt-2">
-        <nav class="navbar navbar-expand-sm navbar-dark rounded-4" style="background-color: #7888ee;">
+        <nav class="navbar navbar-expand-sm navbar-dark rounded-4" style="background-color: #736391;">
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="#">Forum</a>
@@ -10,14 +10,14 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    
+
                     @auth
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ $title == 'Posts' ? 'active border-bottom' : '' }}"
-                                href="/posts">Posts</a>
-                        </li>
-                    </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link {{ $title == 'Posts' ? 'active border-bottom' : '' }}"
+                                    href="/posts">Posts</a>
+                            </li>
+                        </ul>
                     @endauth
 
                     <ul class="navbar-nav ms-auto mr-2">
@@ -28,14 +28,16 @@
                                     {{ auth()->user()->name }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/dashboard"><span class="align-text-bottom" data-feather="home"></span> Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/dashboard"><span class="align-text-bottom"
+                                                data-feather="home"></span> Dashboard</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
                                         <form action="/logout" method="POST">
                                             @csrf
-                                            <button class="dropdown-item" type="submit"><span class="align-text-bottom" data-feather='log-out'></span>Logout</button>
+                                            <button class="dropdown-item" type="submit"><span class="align-text-bottom"
+                                                    data-feather='log-out'></span>Logout</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -51,7 +53,7 @@
                 </div>
             </div>
         </nav>
-        
-    
+
+
 
     </div>

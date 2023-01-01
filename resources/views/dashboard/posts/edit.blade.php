@@ -41,7 +41,6 @@
         </div>
         
         <div class="mb-3">
-            <div class="text-danger">FILE BUTTON HAS YET TO BE REMOVED</div>
             <input id="x" type="hidden"  name="content" value="{{ old('content',$post->content) }}">
             <trix-editor class="@error('title') is-invalid @enderror" input="x"></trix-editor>
             @error('content')
@@ -50,6 +49,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Update Post</button>
+        <a href="/dashboard/posts" class="btn btn-danger">Cancel</a>
+
     </form>
 </div>
 

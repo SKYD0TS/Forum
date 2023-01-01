@@ -5,7 +5,7 @@
     <h1>Posts of, {{ auth()->user()->name }}</h1>
 </div>
 <div class="container acts">
-    <a class="mt-4 btn btn-success" href="/dashboard/posts"><span  class="align-text-bottom" data-feather="arrow-left"></span> Back to posts</a>
+    <a class="mt-4 btn btn-primary" href="/dashboard/posts"><span  class="align-text-bottom" data-feather="arrow-left"></span> Back to posts</a>
     <a class="mt-4 btn btn-warning" href="/dashboard/posts/{{ $post->slug }}/edit"><span  class="align-text-bottom" data-feather="edit-3"></span> Edit Post</a>
     <form class="d-inline" action="/dashboard/posts/{{ $post->slug }}" method="POST">
         @method('delete')

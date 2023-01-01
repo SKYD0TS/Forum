@@ -19,8 +19,8 @@ class DashboardPostController extends Controller
      */
     public function index()
     {
-        return view('dashboard/posts/index',[
-            'posts'=> Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get()
+        return view('dashboard/posts/index', [
+            'posts' => Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get()
         ]);
     }
 
@@ -31,8 +31,8 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        return view('dashboard.posts.create',[
-            'categories'=> Category::all()
+        return view('dashboard.posts.create', [
+            'categories' => Category::all()
         ]);
     }
 
@@ -44,15 +44,23 @@ class DashboardPostController extends Controller
      */
     public function store(Request $the)
     {
+        // return $the->file('image')->store('post-images');
+
         $validatedData = $the->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts',
+            'image' => 'image|file|max:14',
             'category_id' => 'required',
             'content' => 'required'
         ]);
+
+
         $validatedData['user_id'] = auth()->user()->id;
+
         // $validatedData['excerpt'] = substr($the->content,0,100);
-        $validatedData['excerpt'] = Str::limit(strip_tags($the->content),200);
+
+        $validatedData['excerpt'] = Str::limit(strip_tags($the->content), 200);
+
         Post::create($validatedData);
         return redirect('/dashboard/posts')->with('success', 'New Post');
     }
@@ -65,9 +73,9 @@ class DashboardPostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('dashboard.posts.show',['post'=>$post]);
+        return view('dashboard.posts.show', ['post' => $post]);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -77,11 +85,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('dashboard.posts.edit',[
+        return view('dashboard.posts.edit', [
             'post' => $post,
             'categories' => Category::all()
         ]);
-        
     }
 
     /**
@@ -93,13 +100,13 @@ class DashboardPostController extends Controller
      */
     public function update(Request $the, Post $post)
     {
-        $rules =([
+        $rules = ([
             'title' => 'required|max:255',
             'category_id' => 'required',
             'content' => 'required'
         ]);
 
-        if($the->slug != $post->slug){
+        if ($the->slug != $post->slug) {
             $rules['slug'] = 'required|unique:posts';
         }
 
@@ -108,10 +115,9 @@ class DashboardPostController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         // $validatedData['excerpt'] = substr($the->content,0,100);
-        $validatedData['excerpt'] = Str::limit(strip_tags($the->content),200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($the->content), 200);
         Post::where('id', $post->id)->update($validatedData);
         return redirect('/dashboard/posts')->with('success', 'Updated Post');
-
     }
 
     /**
@@ -124,13 +130,12 @@ class DashboardPostController extends Controller
     {
         Post::destroy($post->id);
         return redirect('/dashboard/posts')->with('success', 'Post Deleted');
-
     }
 
-    public function checkSlug(Request $req) {
-        
+    public function checkSlug(Request $req)
+    {
+
         $slug = SlugService::createSlug(Post::class, 'slug', $req->title);
-        return response()->json(['slug'=>$slug]);
+        return response()->json(['slug' => $slug]);
     }
-    
 }
