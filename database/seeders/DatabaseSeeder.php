@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'thuliumENT',
             'username' => 'THXV',
             'email' => 'THXV@gmail.com',
+            'role' => 'ADMIN',
             'password' => bcrypt('thxpassword')
         ]);
         //     user::create([
@@ -36,13 +37,16 @@ class DatabaseSeeder extends Seeder
         category::create([
             'name' => 'Programming',
             'slug' => 'programmingCat'
-        ]);category::create([
+        ]);
+        category::create([
             'name' => '3D Modelling',
             'slug' => '3dodellingCat'
-        ]);category::create([
+        ]);
+        category::create([
             'name' => 'Lifestyle',
             'slug' => 'lifestyleCat'
-        ]);category::create([
+        ]);
+        category::create([
             'name' => 'Tutorial',
             'slug' => 'tutorialCat'
         ]);

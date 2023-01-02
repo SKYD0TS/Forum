@@ -12,12 +12,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
 
                     <ul class="navbar-nav">
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link {{ $title == 'Posts' ? 'active border-bottom' : '' }}"
-                                    href="/posts">Posts</a>
-                            </li>
-                        @endauth
+                        <li class="nav-item">
+                            <a class="nav-link {{ $title == 'Posts' ? 'active border-bottom' : '' }}"
+                                href="/posts">Posts</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $title == 'About' ? 'active border-bottom' : '' }}"
                                 href="/">About</a>
@@ -32,19 +30,16 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth()->user()->name }}
                                 </a>
+
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/dashboard"><span class="align-text-bottom"
-                                                data-feather="home"></span> Dashboard</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
                                     <li>
                                         <form action="/logout" method="POST">
                                             @csrf
                                             <button class="dropdown-item" type="submit"><span class="align-text-bottom"
-                                                    data-feather='log-out'></span>Logout</button>
+                                                    data-feather='log-out'></span> Logout</button>
                                         </form>
                                     </li>
+                                    <hr class="my-0">
                                 </ul>
                             </li>
                         @else

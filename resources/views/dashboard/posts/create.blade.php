@@ -63,8 +63,15 @@
                 @enderror
             </div>
 
+            <input type="text" name='redirectIndex' hidden value="{{ request('redirectIndex') }}">
+
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/dashboard/posts" class="btn btn-danger">Cancel</a>
+
+            @if (request('redirectIndex') == 0)
+                <a href="/dashboard/posts" class="btn btn-danger">Cancel</a>
+            @else
+                <a href="/posts" class="btn btn-danger">Cancel</a>
+            @endif
         </form>
     </div>
 

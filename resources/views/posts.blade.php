@@ -20,7 +20,17 @@
 </div>
 
 <div class="container">
+
+    @if (session()->has('success'))
+        <div class="w-50 mx-auto mt-4 alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success : </strong>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <h2 class="mb-4">{{ $title }}</h2>
+    <a class="d-inline-block mb-4 btn btn-primary" href="/dashboard/posts/create?redirectIndex=1"><span
+            class="align-text-bottom"data-feather='edit-2'></span>Create</a>
     <div class="d-flex flex-row flex-wrap">
         @foreach ($posts as $post)
             {{-- <article class="mb-4 border-bottom">

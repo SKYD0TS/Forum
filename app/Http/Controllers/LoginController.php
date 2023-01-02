@@ -35,6 +35,6 @@ class LoginController extends Controller
         $acc->session()->invalidate();
 
         $acc->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/posts');
     }
 }
