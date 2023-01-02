@@ -22,7 +22,6 @@
                         </li>
                     </ul>
 
-
                     <ul class="navbar-nav ms-auto mr-2">
                         @auth
                             <li class="nav-item dropdown mr-4">
