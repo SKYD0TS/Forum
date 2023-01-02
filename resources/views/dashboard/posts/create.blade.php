@@ -67,11 +67,13 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
 
-            @if (request('redirectIndex') == 0)
+            {{-- @if (request('redirectIndex') == 0)
                 <a href="/dashboard/posts" class="btn btn-danger">Cancel</a>
             @else
                 <a href="/posts" class="btn btn-danger">Cancel</a>
-            @endif
+                @endif --}}
+
+            <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 
