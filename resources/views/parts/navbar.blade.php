@@ -1,5 +1,5 @@
-    <div class="container mt-2">
-        <nav class="navbar navbar-expand-sm navbar-dark rounded-4" style="background-color: #736391;">
+    <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: var(--bs-purple);">
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="#">Forum</a>
