@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/publicPage.css') }}" />
 
+    <link rel="stylesheet" href="{{ asset('css/interactives.css') }}" />
+
 
 </head>
 
