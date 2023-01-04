@@ -1,3 +1,11 @@
+.card:hover {
+    box-shadow: 7px 7px 5px 0px rgba(170, 170, 170, 0.75);
+}
+
+.btn:hover {
+    box-shadow: 6px 6px 3px 0px rgba(170, 170, 170, 0.75);
+}
+
 .card:hover,
 .btn:hover {
     transform: translateY(-3px);
@@ -5,5 +13,5 @@
 
 .card,
 .btn {
-    transition: transform 400ms ease;
+    transition: all 400ms ease;
 }
