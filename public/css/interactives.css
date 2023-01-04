@@ -1,0 +1,9 @@
+.card:hover,
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.card,
+.btn {
+    transition: transform 400ms ease;
+}
