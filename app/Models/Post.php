@@ -21,7 +21,8 @@ class Post extends Model
 
 
     protected $guarded = ['id'];
-    protected $with = ['category', 'user'];
+
+    protected $with = ['category', 'user', 'like'];
 
     public function scopeFilter($query, array $filters)
     {
@@ -74,7 +75,13 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getRouteKeyName(){
+    public function like()
+    {
+        return $this->hasMany(UserPost::class);
+    }
+
+    public function getRouteKeyName()
+    {
         return 'slug';
     }
 }
