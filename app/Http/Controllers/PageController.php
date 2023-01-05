@@ -60,16 +60,29 @@ class PageController extends Controller
 
     public function likeDislike(Request $res)
     {
-        $new = [
-            'user_id' => auth()->user()->id,
-            'post_id' => $res->postid,
-        ];
+        $the = UserPost::where('user_id', auth()->user()->id)
+            ->where('post_id', $res->postid)->first();
 
-        if ($res->dislike) {
-            $new['val'] = -1;
-        } else if ($res->like) {
-            $new['val'] = 1;
+            // return $the==null;
+        if ($the) {
+            $the->delete();
+            return redirect('/posts');
+
+            
+        } else{
+
+            $new = [
+                'user_id' => auth()->user()->id,
+                'post_id' => $res->postid,
+            ];
+            
+            if ($res->dislike) {
+                $new['val'] = -1;
+            } else if ($res->like) {
+                $new['val'] = 1;
+            }
         }
+            
         UserPost::create($new);
         return redirect('/posts');
     }
