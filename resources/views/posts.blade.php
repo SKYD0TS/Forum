@@ -68,7 +68,7 @@
                         </form>
 
                     </div>
-                    <p class="mt-2">{{ $post->like->count() }}</p>
+                    <p class="mt-2">{{ $post->like->sum('val') }}</p>
                 </div>
             </div>
         @endforeach
