@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-
+use App\Models\UserPost;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -34,7 +34,7 @@ class PageController extends Controller
     public function viewPost(Post $title)
     {
         return view('post', [
-            'post' => $title->load(['category', 'user']),
+            'post' => $title->load(['category', 'user', 'like']),
             'title' => 'Post',
 
         ]);
@@ -44,7 +44,7 @@ class PageController extends Controller
     {
         return view('posts', [
             'title' => 'Posts In ' . $category->name,
-            'posts' => $category->posts->load('category', 'user')
+            'posts' => $category->posts->load('category', 'user', 'like')
 
         ]);
     }
@@ -53,8 +53,24 @@ class PageController extends Controller
     {
         return view('posts', [
             'title' => 'Posts By : ' . $user->name,
-            'posts' => $user->posts->load('category', 'user')
+            'posts' => $user->posts->load('category', 'user', 'like')
 
         ]);
+    }
+
+    public function likeDislike(Request $res)
+    {
+        $new = [
+            'user_id' => auth()->user()->id,
+            'post_id' => $res->postid,
+        ];
+
+        if ($res->dislike) {
+            $new['val'] = -1;
+        } else if ($res->like) {
+            $new['val'] = 1;
+        }
+        UserPost::create($new);
+        return redirect('/posts');
     }
 }
