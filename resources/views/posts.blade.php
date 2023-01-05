@@ -33,15 +33,7 @@
             class="align-text-bottom"data-feather='edit-2'></span>Create</a>
     <div class="d-flex flex-row flex-wrap">
         @foreach ($posts as $post)
-            {{-- <article class="mb-4 border-bottom">
-                <li>
-                    <h4><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h4>
-                    <p>{{ $post->excerpt . '...' }} </p>
-                    <p><a href="/posts?user={{ $post->user->username }}">{{ $post->user->name }}</a>
-                    in <a href="/posts?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>
-                </li>
-            </article>
-             --}}
+            {{--  --}}
             <div class="card mx-2 my-2" style="width: 18rem;">
                 @if ($post->image)
                     <img class="mx-1 my-1 rounded-top" src="{{ asset('storage/' . $post->image) }}" alt="">
@@ -62,7 +54,21 @@
                     </h6>
 
                     <p class="card-text">{{ $post->excerpt }}</p>
-                    <a href="/post/{{ $post->slug }}" class="btn btn-primary">Read More</a>
+                    <div class="p-0 container">
+                        <a href="/post/{{ $post->slug }}" class="btn btn-primary">Read More</a>
+
+                        <form method="POST">
+                            <input hidden type="text" name="postid" value="{{ $post->id }}">
+                            @csrf
+                            <button class="border-0" type="submit" name="like" value="1"><span
+                                    data-feather="arrow-up-circle"></span></button>
+
+                            <button class="border-0" type="submit" name="dislike" value="1"> <span
+                                    data-feather="arrow-down-circle"></span></button>
+                        </form>
+
+                    </div>
+                    <p class="mt-2">{{ $post->like->count() }}</p>
                 </div>
             </div>
         @endforeach
