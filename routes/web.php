@@ -30,7 +30,7 @@ Route::get('post/{title:slug}', [PageController::class, 'viewPost']);
 Route::get('category/{category:slug}', [PageController::class, 'byCategory']);
 Route::get('user/{user:username}', [PageController::class, 'byUser']);
 
-Route::post('posts', [PageController::class, 'likeDislike'])->middleware('auth');
+Route::post('vote', [PageController::class, 'vote']);
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -38,9 +38,6 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'loginUser']);
 
 Route::post('/logout', [LoginController::class, 'logoutUser']);
-// Route::post('/login', function () {
-//     echo request();
-// });
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'registerUser']);
