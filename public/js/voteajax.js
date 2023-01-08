@@ -15,8 +15,6 @@ let btn = $("button[value='vote']")
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(result) {
-                postslug = result['postslug']
-                likes = result['likes']
                 $(`#voteCount[postslug=${result['postslug']}]`).html(result['likes'])
             }
         });
