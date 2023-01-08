@@ -58,32 +58,67 @@ class PageController extends Controller
         ]);
     }
 
-    public function likeDislike(Request $res)
-    {
+    public function vote(Request $res){
+        $postslug = $res->input('postslug');
+        $vote = $res->input('vote');
+        $postid = Post::where('slug', $postslug)->first()->id;
+        
         $the = UserPost::where('user_id', auth()->user()->id)
-            ->where('post_id', $res->postid)->first();
+        ->where('post_id', $postid)->first();
 
-            // return $the==null;
+        $res['postslug'] = $postslug;
+        
         if ($the) {
             $the->delete();
-            return redirect('/posts');
+            $res['likes'] =  $the->sum('val');
+            return response($res);
 
             
         } else{
-
             $new = [
                 'user_id' => auth()->user()->id,
-                'post_id' => $res->postid,
+                'post_id' => $postid,
             ];
             
-            if ($res->dislike) {
+            if ($vote == 'dislike') {
                 $new['val'] = -1;
-            } else if ($res->like) {
+            } else if ($vote == 'like') {
                 $new['val'] = 1;
             }
         }
-            
         UserPost::create($new);
-        return redirect('/posts');
+        $p = Post::find($postid);
+        $res = ['likes' => $p->like->sum('val'), 'postslug'=> $postslug];
+
+        return response($res);
     }
+
+    // public function likeDislike(Request $res)
+    // {
+    //     $the = UserPost::where('user_id', auth()->user()->id)
+    //         ->where('post_id', $res->postid)->first();
+
+    //         // return $the==null;
+    //     if ($the) {
+    //         $the->delete();
+    //         return redirect('/posts');
+
+            
+    //     } else{
+
+    //         $new = [
+    //             'user_id' => auth()->user()->id,
+    //             'post_id' => $res->postid,
+    //         ];
+            
+    //         if ($res->dislike) {
+    //             $new['val'] = -1;
+    //         } else if ($res->like) {
+    //             $new['val'] = 1;
+    //         }
+    //     }
+            
+    //     UserPost::create($new);
+    //     return redirect('/posts');
+    // }
 }
