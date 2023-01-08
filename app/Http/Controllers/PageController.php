@@ -63,10 +63,11 @@ class PageController extends Controller
         $vote = $res->input('vote');
         $postid = Post::where('slug', $postslug)->first()->id;
         
+        $res['postslug'] = $postslug;
+
         $the = UserPost::where('user_id', auth()->user()->id)
         ->where('post_id', $postid)->first();
 
-        $res['postslug'] = $postslug;
         
         if ($the) {
             $the->delete();
@@ -88,8 +89,7 @@ class PageController extends Controller
         }
         UserPost::create($new);
         $p = Post::find($postid);
-        $res = ['likes' => $p->like->sum('val'), 'postslug'=> $postslug];
-
+        $res['likes'] = $p->like->sum('val');
         return response($res);
     }
 
