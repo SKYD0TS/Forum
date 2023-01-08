@@ -57,18 +57,14 @@
                     <div class="p-0 container">
                         <a href="/post/{{ $post->slug }}" class="btn btn-primary">Read More</a>
 
-                        <form method="POST">
-                            <input hidden type="text" name="postid" value="{{ $post->id }}">
-                            @csrf
-                            <button class="border-0" type="submit" name="like" value="1"><span
+                            <button class="border-0" data-postslug='{{$post->slug}}' data-vote="like" value="vote"><span
                                     data-feather="arrow-up-circle"></span></button>
 
-                            <button class="border-0" type="submit" name="dislike" value="1"> <span
+                            <button class="border-0" data-postslug='{{$post->slug}}' data-vote="dislike" value="vote"> <span
                                     data-feather="arrow-down-circle"></span></button>
-                        </form>
 
                     </div>
-                    <p class="mt-2">{{ $post->like->sum('val') }}</p>
+                    <p id="voteCount" postslug='{{$post->slug}}' class="mt-2">{{ $post->like->sum('val') }}</p>
                 </div>
             </div>
         @endforeach
@@ -77,3 +73,5 @@
         {{ $posts->links() }}
     </div>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="js/voteajax.js"></script>
