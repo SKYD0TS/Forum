@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\UserPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -59,66 +60,31 @@ class PageController extends Controller
     }
 
     public function vote(Request $res){
+        
         $postslug = $res->input('postslug');
         $vote = $res->input('vote');
-        $postid = Post::where('slug', $postslug)->first()->id;
+        $post = Post::where('slug', $postslug)->first();
         
         $res['postslug'] = $postslug;
+        $like = UserPost::where('user_id', Auth::id())
+            ->where('post_id', $post->id)->first();
 
-        $the = UserPost::where('user_id', auth()->user()->id)
-        ->where('post_id', $postid)->first();
-
-        
-        if ($the) {
-            $the->delete();
-            $res['likes'] =  $the->sum('val');
+        if($like){
+            $like->delete();
+            $res['likes'] =  Post::find($post->id)->like->sum('val');
             return response($res);
 
-            
-        } else{
+        }else{
             $new = [
-                'user_id' => auth()->user()->id,
-                'post_id' => $postid,
+                'user_id' => Auth::id(),
+                'post_id' => $post->id,
             ];
-            
-            if ($vote == 'dislike') {
-                $new['val'] = -1;
-            } else if ($vote == 'like') {
-                $new['val'] = 1;
-            }
+                
+            $new['val'] = $vote=='like'? 1:-1;
+            UserPost::create($new);
         }
-        UserPost::create($new);
-        $p = Post::find($postid);
-        $res['likes'] = $p->like->sum('val');
+
+        $res['likes'] =  Post::find($post->id)->like->sum('val');
         return response($res);
     }
-
-    // public function likeDislike(Request $res)
-    // {
-    //     $the = UserPost::where('user_id', auth()->user()->id)
-    //         ->where('post_id', $res->postid)->first();
-
-    //         // return $the==null;
-    //     if ($the) {
-    //         $the->delete();
-    //         return redirect('/posts');
-
-            
-    //     } else{
-
-    //         $new = [
-    //             'user_id' => auth()->user()->id,
-    //             'post_id' => $res->postid,
-    //         ];
-            
-    //         if ($res->dislike) {
-    //             $new['val'] = -1;
-    //         } else if ($res->like) {
-    //             $new['val'] = 1;
-    //         }
-    //     }
-            
-    //     UserPost::create($new);
-    //     return redirect('/posts');
-    // }
 }
