@@ -30,7 +30,7 @@ Route::get('post/{title:slug}', [PageController::class, 'viewPost']);
 Route::get('category/{category:slug}', [PageController::class, 'byCategory']);
 Route::get('user/{user:username}', [PageController::class, 'byUser']);
 
-Route::post('vote', [PageController::class, 'vote']);
+Route::post('vote', [PageController::class, 'vote'])->middleware('auth');
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
