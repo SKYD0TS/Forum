@@ -1,7 +1,5 @@
 let btn = $("button[value='vote']")
 
-    console.log(btn)
-
     btn.click(function(e){
         ctxBtn = $(e.currentTarget)
         $.ajax({
